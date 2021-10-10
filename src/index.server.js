@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 //Routes
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin/auth");
+const categoryRoutes = require("./routes/category");
+const courseRoutes = require("./routes/courses");
+const cartRoutes = require("./routes/cart");
 //Config
 env.config();
 app.use(express.json());
@@ -23,6 +26,9 @@ mongoose
 //Connections
 app.use("/api", authRoutes);
 app.use("/api", adminRoutes);
+app.use("/api", categoryRoutes);
+app.use("/api", courseRoutes);
+app.use("/api", cartRoutes);
 //App listening
 app.listen(process.env.PORT, () => {
   console.log("Server running");
