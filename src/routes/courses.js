@@ -1,6 +1,6 @@
 const express = require("express");
 const { requireSignIn, adminMiddleware } = require("../common-middleware");
-const { createCourse } = require("../controllers/courses");
+const { createCourse, getCourse } = require("../controllers/courses");
 const router = express.Router();
 const multer = require("multer");
 
@@ -24,5 +24,5 @@ router.post(
 );
 
 //
-router.get("/courses/getcourses");
+router.get("/courses/getcourses", getCourse);
 module.exports = router;

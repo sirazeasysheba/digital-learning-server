@@ -1,5 +1,6 @@
 const User = require("../models/auth");
 const jwt = require("jsonwebtoken");
+const { userMiddleware } = require("../common-middleware");
 exports.signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user) {
@@ -23,7 +24,7 @@ exports.signin = (req, res) => {
       return res.status(400).json({ error });
     }
     if (user) {
-      if (user.authenticate(req.body.password)) {
+      if (user.authenticate(req.body.password) && user.role === "user") {
         const token = jwt.sign(
           { _id: user._id, role: user.role },
           process.env.JWT_TOKEN,
@@ -32,7 +33,7 @@ exports.signin = (req, res) => {
           }
         );
         const { _id, name, username, email, role, contactNumber } = user;
-        res.status(201).json({
+        res.status(200).json({
           token,
           user: {
             _id,

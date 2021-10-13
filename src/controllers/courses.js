@@ -44,3 +44,14 @@ exports.createCourse = (req, res) => {
     }
   });
 };
+
+exports.getCourse = (req, res) => {
+  Course.find({}).exec((error, course) => {
+    if (error) {
+      return res.status(400).json({ error });
+    }
+    if (course) {
+      return res.status(201).json({ course });
+    }
+  });
+};
